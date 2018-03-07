@@ -1,0 +1,7 @@
+[internal]
+login_url = http://z.intra.knownsec.com/login
+username = 
+password = 
+api_url = http://z.intra.knownsec.com/api/search
+
+[external]
