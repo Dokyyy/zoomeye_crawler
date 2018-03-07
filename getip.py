@@ -4,16 +4,17 @@ import argparse
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-d', required = True, help = 'dork text')
-    parser.add_argument('-p', required = True, type = int, help = 'max page to get')
-    parser.add_argument('-f', help = 'output file name')
+    parser.add_argument('-e', '--external', action = 'store_true', help = 'use external zoomeye?')
+    parser.add_argument('-d', '--dork', required = True, help = 'dork text')
+    parser.add_argument('-p', '--pages', required = True, type = int, help = 'max page to get')
+    parser.add_argument('-f', '--filename', help = 'output file name')
     args = parser.parse_args()
 
-    z = ZSearch(True, args.f)
+    z = ZSearch(not args.external, args.filename)
     z.login()
-    for page in range(1, args.p):
-        z.logger.info("Getting page %d of %d" % (page, args.p))
-        result = z.search(args.d, page)
+    for page in range(1, args.pages):
+        z.logger.info("Getting page %d of %d" % (page, args.pages))
+        result = z.search(args.dork, page)
         if len(result) > 0:
             z.write(result)
         else:

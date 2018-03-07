@@ -49,7 +49,7 @@ class ZSearch:
             else:
                 reg = re.compile(r"localStorage\.token=\"(.*?)\";")
                 self.token = re.search(reg, res.text).group(1)
-                self.logger.info("Login success, token %s" % self.token)
+                self.logger.info("Login success.")
         else:
             self.logger.error('external is under develop')
             sys.exit(0)
@@ -75,5 +75,9 @@ class ZSearch:
 
     def write(self, result):
         with open(self.output_file, 'a') as fp:
-            for item in result['matches']:
-                fp.write("%s:%s\n" % (item['ip'], item['portinfo']['port']))
+            for item in result:
+                if 'portinfo' in item:
+                    port = item['portinfo']['port']
+                else:
+                    port = 80
+                fp.write("%s:%s\n" % (item['ip'], port))
