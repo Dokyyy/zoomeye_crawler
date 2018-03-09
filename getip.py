@@ -12,14 +12,17 @@ if __name__ == '__main__':
 
     z = ZSearch(not args.external, args.filename)
     z.login()
+    count = 0
     for page in range(1, args.pages):
         z.logger.info("Getting page %d of %d" % (page, args.pages))
         result = z.search(args.dork, page)
         if len(result) > 0:
+            count += len(result)
             z.write(result)
         else:
             z.logger.info("No more result.")
             break
+    z.logger.info("%s results in total." % count)
 
     
         

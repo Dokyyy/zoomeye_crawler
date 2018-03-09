@@ -31,7 +31,7 @@ class ZSearch:
         try:
             self.config.read('config.ini')
         except:
-            self.logger.error("Config file error.")
+            self.logger.critical("Config file error, rename config.ini.sample and edit it.")
             sys.exit(1)
 
     def login(self):
@@ -67,7 +67,7 @@ class ZSearch:
             res = self.session.get(self.config['internal']['api_url'],
                 headers = headers, params = data)
             result = json.loads(res.text)['matches']
-            self.logger.info("Returned %d results." % len(result))
+            self.logger.debug("Returned %d results." % len(result))
             return result
         else:
             self.logger.error('external is under develop')
@@ -76,8 +76,16 @@ class ZSearch:
     def write(self, result):
         with open(self.output_file, 'a') as fp:
             for item in result:
-                if 'portinfo' in item:
-                    port = item['portinfo']['port']
+                if 'site' in item:
+                    # if result is a domain name, it will possibly have multi-ip
+                    host = item['site']
                 else:
-                    port = 80
-                fp.write("%s:%s\n" % (item['ip'], port))
+                    host = item['ip']
+                
+                # domain name results have no port
+                if 'portinfo' in item:
+                    wstr = "%s:%s\n" % (host, item['portinfo']['port'])
+                else:
+                    wstr = "%s\n" % host
+                fp.write(wstr)
+
