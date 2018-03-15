@@ -13,7 +13,7 @@ if __name__ == '__main__':
     z = ZSearch(not args.external, args.filename)
     z.login()
     count = 0
-    for page in range(1, args.pages):
+    for page in range(1, args.pages + 1):
         z.logger.info("Getting page %d of %d" % (page, args.pages))
         result = z.search(args.dork, page)
         if len(result) > 0:
