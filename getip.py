@@ -23,7 +23,9 @@ if __name__ == '__main__':
         else:
             z.logger.info("No more result.")
             break
-        if page % 10 == 0: time.sleep(2)
+        if page % 60 == 0:
+            z.logger.warning("Take a 30s rest...")            
+            time.sleep(30)
     z.logger.info("%s results in total." % count)
 
     
