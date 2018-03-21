@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from zsearch import ZSearch
 import argparse
+import time
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -22,6 +23,7 @@ if __name__ == '__main__':
         else:
             z.logger.info("No more result.")
             break
+        if page % 10 == 0: time.sleep(2)
     z.logger.info("%s results in total." % count)
 
     
