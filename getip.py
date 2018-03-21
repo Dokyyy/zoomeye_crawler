@@ -9,7 +9,7 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--dork', required = True, help = 'dork text')
     parser.add_argument('-p', '--pages', required = True, type = int, help = 'max page to get')
     parser.add_argument('-f', '--filename', help = 'output file name')
-    parser.add_argument('-h', '--host', action = 'store_true', help = 'search for device only(t=host)')    
+    parser.add_argument('-t', '--host', action = 'store_true', help = 'search for device only(t=host)')    
     args = parser.parse_args()
 
     z = ZSearch(not args.external, args.filename)

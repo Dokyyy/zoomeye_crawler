@@ -64,7 +64,7 @@ class ZSearch:
                 'q' : dork,
                 'p' : page
             }
-            if host: data[t] = "host"
+            if host: data['t'] = "host"
             res = self.session.get(self.config['internal']['api_url'],
                 headers = headers, params = data)
             result = json.loads(res.text)['matches']
