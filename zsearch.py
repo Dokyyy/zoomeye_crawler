@@ -54,7 +54,7 @@ class ZSearch:
             self.logger.error('external is under develop')
             sys.exit(0)
 
-    def search(self, dork, page):
+    def search(self, dork, page, host):
         if self.is_internal:
             # search with internal zoomeye
             headers = {
@@ -64,6 +64,7 @@ class ZSearch:
                 'q' : dork,
                 'p' : page
             }
+            if host: data[t] = "host"
             res = self.session.get(self.config['internal']['api_url'],
                 headers = headers, params = data)
             result = json.loads(res.text)['matches']

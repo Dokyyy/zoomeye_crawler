@@ -9,6 +9,7 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--dork', required = True, help = 'dork text')
     parser.add_argument('-p', '--pages', required = True, type = int, help = 'max page to get')
     parser.add_argument('-f', '--filename', help = 'output file name')
+    parser.add_argument('-h', '--host', action = 'store_true', help = 'search for device only(t=host)')    
     args = parser.parse_args()
 
     z = ZSearch(not args.external, args.filename)
@@ -16,7 +17,7 @@ if __name__ == '__main__':
     count = 0
     for page in range(1, args.pages + 1):
         z.logger.info("Getting page %d of %d" % (page, args.pages))
-        result = z.search(args.dork, page)
+        result = z.search(args.dork, page, args.host)
         if len(result) > 0:
             count += len(result)
             z.write(result)
